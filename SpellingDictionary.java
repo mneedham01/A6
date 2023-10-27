@@ -28,13 +28,18 @@ public class SpellingDictionary implements SpellingOperations {
       *  @return true if the query word is in the dictionary.
     */
     public boolean isListed(String word) {
-        return dictionary.contains(word.toLowerCase());
+        StringBuilder sb = new StringBuilder(word.toLowerCase());
+        return dictionary.contains(sb);
     }
 
-    public ArrayList<String> generateDeletions(String word){
-        ArrayList<String> deletions = new ArrayList<String>();
+    public ArrayList<StringBuilder> generateDeletions(StringBuilder word){
+        // establish ArrayList
+        ArrayList<StringBuilder> deletions = new ArrayList<StringBuilder>();
         // loop through word
-        //
+        for (int i = 0; i < word.length(); i++) {
+            StringBuilder deletion = new StringBuilder(word.substring(0,i) + word.substring(i+1));
+            deletions.add(deletion);
+        }
         return deletions;
     }
 
