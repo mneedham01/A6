@@ -1,16 +1,13 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
-public class SpellingDictionary {
-    HashSet<String> dictionary;
+public class SpellingDictionary implements SpellingOperations {
+    HashSet<StringBuilder> dictionary;
     /**  */
     public SpellingDictionary(String filename) {
         // establish empty HashSet
-        dictionary = new HashSet<String>();
+        dictionary = new HashSet<StringBuilder>();
         // establish Scanner
         Scanner file = null;
         try {
@@ -22,10 +19,36 @@ public class SpellingDictionary {
         // read through file and add to hashSet
         while (file.hasNextLine()) {
             // convert to lowerCase
-            String word = file.nextLine().toLowerCase();
+            StringBuilder word = new StringBuilder(file.nextLine().toLowerCase());
             dictionary.add(word);
         }
     }
-    // containsWord
-    // nearMisses
+     /**
+      *  @param word the word to check
+      *  @return true if the query word is in the dictionary.
+    */
+    public boolean isListed(String word) {
+        return dictionary.contains(word.toLowerCase());
+    }
+
+    public ArrayList<String> generateDeletions(String word){
+        ArrayList<String> deletions = new ArrayList<String>();
+        // loop through word
+        //
+        return deletions;
+    }
+
+    /**
+     *  @param word the word to check
+     *  @return a list of all valid words that are one edit away from the query
+    */
+    public ArrayList<String> nearMisses(String word) {
+        ArrayList<String> nearMisses = new ArrayList<String>();
+
+        return nearMisses;
+    }
+
+    public static void main(String[] args) {
+        SpellingDictionary test = new SpellingDictionary("words.txt");
+    }
 }
