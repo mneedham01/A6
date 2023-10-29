@@ -64,7 +64,7 @@ public class SpellingDictionary implements SpellingOperations {
         return insertions;
     }
 
-    /** @return ArrayList of Strings with possible 1- char subsitutions */
+    /** @return ArrayList of Strings with all possible 1- char subsitutions */
     public ArrayList<String> generateSubstitutions(StringBuilder word) {
         // establish ArrayList
         ArrayList<String> substitutions = new ArrayList<String>();
@@ -82,6 +82,31 @@ public class SpellingDictionary implements SpellingOperations {
         return substitutions;
     }
 
+    /** @return ArrayList of Strings with all possible 1- char transpositions */
+    public ArrayList<String> generateTranspositions(StringBuilder word) {
+        // establish ArrayList
+        ArrayList<String> transpositions = new ArrayList<String>();
+        // loop through word
+        for (int i = 0; i < word.length() - 1; i++) {
+            String transpo = word.substring(0, i)+ word.substring(i + 1, i + 2) + word.substring(i, i + 1) + word.substring(i + 2);
+            transpositions.add(transpo);
+        }
+        return transpositions;
+    }
+
+    /** @return ArrayList of Strings with all possible splits */
+    public ArrayList<String> generateSplits (StringBuilder word) {
+        // establish ArrayList
+        ArrayList<String> splits = new ArrayList<String>();
+        // loop through word
+        for (int i = 0; i < word.length() - 1; i++) {
+            String split = word.substring(0, i + 1) + " " + word.substring(i + 1);
+            splits.add(split);
+        }
+        return splits;
+
+    }
+
     /**
      *  @param word the word to check
      *  @return a list of all valid words that are one edit away from the query
@@ -93,7 +118,10 @@ public class SpellingDictionary implements SpellingOperations {
         StringBuilder wordSB = new StringBuilder(word);
 
         nearMisses.addAll(generateDeletions(wordSB));
-        //nearMisses.addAll();
+        nearMisses.addAll(generateInsertions(wordSB));
+        nearMisses.addAll(generateSubstitutions(wordSB));
+        nearMisses.addAll(generateTranspositions(wordSB));
+
 
         return nearMisses;
     }

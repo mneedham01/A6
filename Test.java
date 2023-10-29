@@ -21,7 +21,9 @@ public class Test {
             numChoices = 25 * wordLen;
         }
         if (function == "transposition" || function == "split") {
-            numChoices = wordLen - 1;
+            if (wordLen != 0 && wordLen != 1) {
+                numChoices = wordLen - 1;
+            }
         }
         return numChoices;
     }
@@ -52,6 +54,18 @@ public class Test {
             // System.out.println("Substitutions: " + test.generateSubstitutions(testWord));
             System.out.println("Expected number of choices: " + numChoices("substitution",testWords[i]));
             System.out.println("Actual number of choices: " + test.generateSubstitutions(testWord).size()+"\n");
+
+            // transpositions
+            System.out.println("Transpositions:");
+            // System.out.println("Transpositions: " + test.generateTranspositions(testWord));
+            System.out.println("Expected number of choices: " + numChoices("transposition",testWords[i]));
+            System.out.println("Actual number of choices: " + test.generateTranspositions(testWord).size()+"\n");
+
+            // splits
+            System.out.println("Splits");
+            // System.out.println("Splits: " + test.generateSplits(testWord));
+            System.out.println("Expected number of choices: " + numChoices("split",testWords[i]));
+            System.out.println("Actual number of choices: " + test.generateSplits(testWord).size()+"\n");
         }
     }
 }
