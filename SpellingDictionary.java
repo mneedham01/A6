@@ -32,15 +32,34 @@ public class SpellingDictionary implements SpellingOperations {
         return dictionary.contains(sb);
     }
 
-    public ArrayList<StringBuilder> generateDeletions(StringBuilder word){
+    /** @returns ArrayList of Strings with possible 1-character deletions */
+    public ArrayList<String> generateDeletions(StringBuilder word){
         // establish ArrayList
-        ArrayList<StringBuilder> deletions = new ArrayList<StringBuilder>();
+        ArrayList<String> deletions = new ArrayList<String>();
         // loop through word
         for (int i = 0; i < word.length(); i++) {
-            StringBuilder deletion = new StringBuilder(word.substring(0,i) + word.substring(i+1));
+            String deletion = word.substring(0,i) + word.substring(i+1);
             deletions.add(deletion);
         }
         return deletions;
+    }
+
+    /** @returns ArrayList of Strings with possible 1-character insertions */
+    public ArrayList<String> generateInsertions(StringBuilder word) {
+        // establish ArrayList
+        ArrayList<String> insertions = new ArrayList<String>();
+        // establish alphabet
+        Character[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+        // loops through alphabet
+        for (int i = 0; i < alphabet.length; i++) {
+            Character letter = alphabet[i];
+            // loop through word
+            for (int j = 0; j < word.length() + 1; j++) {
+                String insertion = word.substring(0, j) + letter + word.substring(j);
+                insertions.add(insertion);
+            }
+        }
+        return insertions;
     }
 
     /**
@@ -50,7 +69,32 @@ public class SpellingDictionary implements SpellingOperations {
     public ArrayList<String> nearMisses(String word) {
         ArrayList<String> nearMisses = new ArrayList<String>();
 
+        // turn into StringBuilder
+        StringBuilder wordSB = new StringBuilder(word);
+
+        nearMisses.addAll(generateDeletions(wordSB));
+        //nearMisses.addAll();
+
         return nearMisses;
+    }
+
+    /** @returns the expected number of choices for a given function and word */
+    public int numChoices (String function, String word) {
+        int wordLen = word.length();
+        int numChoices = 0;
+        if (function == "deletion") {
+            numChoices = wordLen;
+        }
+        if (function == "insertion") {
+            numChoices = 26 * (wordLen + 1);
+        }
+        if (function == "substitution") {
+            numChoices = 25 * wordLen;
+        }
+        if (function == "transposition" || function == "split") {
+            numChoices = wordLen - 1;
+        }
+        return numChoices;
     }
 
     // TESTS
@@ -59,11 +103,22 @@ public class SpellingDictionary implements SpellingOperations {
 
         String[] testWords = {"abcdefg","a","ab","abc",""};
 
-        // Test for Deletions
+        // Tests
         for (int i = 0; i < testWords.length; i++) {
             // turn into stringBuilder (usually done within nearMisses)
             StringBuilder testWord = new StringBuilder(testWords[i]);
-            System.out.println("Original word: '" + testWords[i]+ "' \nDeletions: " + test.generateDeletions(testWord)+"\n");
+            System.out.println("Original word: '" + testWords[i]+"'\n");
+
+            // deletions
+            System.out.println("Deletions: " + test.generateDeletions(testWord));
+            System.out.println("Expected number of choices: " + test.numChoices("deletion",testWords[i]));
+            System.out.println("Actual number of choices: " + test.generateDeletions(testWord).size()+"\n");
+
+            // insertions
+            System.out.println("Insertions: ");
+            // System.out.println("Insertions: " + test.generateInsertions(testWord));
+            System.out.println("Expected number of choices: " + test.numChoices("insertion",testWords[i]));
+            System.out.println("Actual number of choices: " + test.generateInsertions(testWord).size()+"\n");
         }
     }
 }
