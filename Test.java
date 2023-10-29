@@ -66,6 +66,9 @@ public class Test {
             // System.out.println("Splits: " + test.generateSplits(testWord));
             System.out.println("Expected number of choices: " + numChoices("split",testWords[i]));
             System.out.println("Actual number of choices: " + test.generateSplits(testWord).size()+"\n");
+
+            // test nearMisses
+            System.out.println("All valid nearMisses = " + test.nearMisses(testWords[i]));
         }
     }
 }

@@ -3,7 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class SpellingDictionary implements SpellingOperations {
-    HashSet<StringBuilder> dictionary;
+    HashSet<String> dictionary;
     // establish alphabet
     Character[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     /**
@@ -12,7 +12,7 @@ public class SpellingDictionary implements SpellingOperations {
      */
     public SpellingDictionary(String filename) {
         // establish empty HashSet
-        dictionary = new HashSet<StringBuilder>();
+        dictionary = new HashSet<String>();
         // establish Scanner
         Scanner file = null;
         try {
@@ -24,7 +24,7 @@ public class SpellingDictionary implements SpellingOperations {
         // read through file and add to hashSet
         while (file.hasNextLine()) {
             // convert to lowerCase
-            StringBuilder word = new StringBuilder(file.nextLine().toLowerCase());
+            String word = file.nextLine().toLowerCase();
             dictionary.add(word);
         }
     }
@@ -112,18 +112,29 @@ public class SpellingDictionary implements SpellingOperations {
      *  @return a list of all valid words that are one edit away from the query
     */
     public ArrayList<String> nearMisses(String word) {
-        ArrayList<String> nearMisses = new ArrayList<String>();
+        ArrayList<String> allNearMisses = new ArrayList<String>();
+        ArrayList<String> validNearMisses = new ArrayList<String>();
 
         // turn into StringBuilder
         StringBuilder wordSB = new StringBuilder(word);
 
-        nearMisses.addAll(generateDeletions(wordSB));
-        nearMisses.addAll(generateInsertions(wordSB));
-        nearMisses.addAll(generateSubstitutions(wordSB));
-        nearMisses.addAll(generateTranspositions(wordSB));
+        allNearMisses.addAll(generateDeletions(wordSB));
+        allNearMisses.addAll(generateInsertions(wordSB));
+        allNearMisses.addAll(generateSubstitutions(wordSB));
+        allNearMisses.addAll(generateTranspositions(wordSB));
+        allNearMisses.addAll(generateSplits(wordSB));
 
+        // checks them against the dictionary and deletes any repetitions
+        for (String nearMiss : allNearMisses) {
+            // if in dictionary and not a repeat
+            if (dictionary.contains(nearMiss)) {
+                if (! validNearMisses.contains(nearMiss)) {
+                    validNearMisses.add(nearMiss);
+                }
+            }
+        }
 
-        return nearMisses;
+        return validNearMisses;
     }
 
     // TEST
