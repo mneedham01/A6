@@ -35,15 +35,23 @@ public class Test {
             System.out.println("Original word: '" + testWords[i]+"'\n");
 
             // deletions
-            System.out.println("Deletions: " + test.generateDeletions(testWord));
+            System.out.println("Deletions:");
+            // for first test, print out all options
+            // System.out.println("Deletions: " + test.generateDeletions(testWord));
             System.out.println("Expected number of choices: " + numChoices("deletion",testWords[i]));
             System.out.println("Actual number of choices: " + test.generateDeletions(testWord).size()+"\n");
 
             // insertions
-            System.out.println("Insertions: ");
+            System.out.println("Insertions:");
             // System.out.println("Insertions: " + test.generateInsertions(testWord));
             System.out.println("Expected number of choices: " + numChoices("insertion",testWords[i]));
             System.out.println("Actual number of choices: " + test.generateInsertions(testWord).size()+"\n");
+
+            // substitutions
+            System.out.println("Substitutions:");
+            // System.out.println("Substitutions: " + test.generateSubstitutions(testWord));
+            System.out.println("Expected number of choices: " + numChoices("substitution",testWords[i]));
+            System.out.println("Actual number of choices: " + test.generateSubstitutions(testWord).size()+"\n");
         }
     }
 }

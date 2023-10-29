@@ -4,7 +4,12 @@ import java.util.*;
 
 public class SpellingDictionary implements SpellingOperations {
     HashSet<StringBuilder> dictionary;
-    /**  */
+    // establish alphabet
+    Character[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    /**
+     * Constructor : creates a dictionary based on filename
+     * @param filename
+     */
     public SpellingDictionary(String filename) {
         // establish empty HashSet
         dictionary = new HashSet<StringBuilder>();
@@ -48,18 +53,33 @@ public class SpellingDictionary implements SpellingOperations {
     public ArrayList<String> generateInsertions(StringBuilder word) {
         // establish ArrayList
         ArrayList<String> insertions = new ArrayList<String>();
-        // establish alphabet
-        Character[] alphabet = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
         // loops through alphabet
         for (int i = 0; i < alphabet.length; i++) {
-            Character letter = alphabet[i];
-            // loop through word
+            // loop through word, insert letter to possible spots
             for (int j = 0; j < word.length() + 1; j++) {
-                String insertion = word.substring(0, j) + letter + word.substring(j);
+                String insertion = word.substring(0, j) + alphabet[i] + word.substring(j);
                 insertions.add(insertion);
             }
         }
         return insertions;
+    }
+
+    /** @return ArrayList of Strings with possible 1- char subsitutions */
+    public ArrayList<String> generateSubstitutions(StringBuilder word) {
+        // establish ArrayList
+        ArrayList<String> substitutions = new ArrayList<String>();
+        // loop through alphabet
+        for (int i = 0; i < alphabet.length; i++) {
+            Character letter = alphabet[i];
+            // loop through word, substitute in possible spots
+            for (int j = 0; j < word.length(); j++) {
+                if (! letter.equals(word.charAt(j))) {
+                    String substitution = word.substring(0, j) + letter + word.substring(j + 1);
+                    substitutions.add(substitution);
+                }
+            }
+        }
+        return substitutions;
     }
 
     /**
