@@ -53,7 +53,17 @@ public class SpellingDictionary implements SpellingOperations {
         return nearMisses;
     }
 
+    // TESTS
     public static void main(String[] args) {
         SpellingDictionary test = new SpellingDictionary("words.txt");
+
+        String[] testWords = {"abcdefg","a","ab","abc",""};
+
+        // Test for Deletions
+        for (int i = 0; i < testWords.length; i++) {
+            // turn into stringBuilder (usually done within nearMisses)
+            StringBuilder testWord = new StringBuilder(testWords[i]);
+            System.out.println("Original word: '" + testWords[i]+ "' \nDeletions: " + test.generateDeletions(testWord)+"\n");
+        }
     }
 }
