@@ -1,3 +1,4 @@
+import java.util.HashSet;
 import java.util.Scanner;
 public class SpellCheck {
 
@@ -15,31 +16,43 @@ public class SpellCheck {
         }
     }
 
+    /**
+     */
+    public static void printIncorrect(HashSet<String> incorrect, SpellingDictionary dict) {
+        System.out.println("Total mispelled words: " + incorrect.size());
+        for (String word: incorrect) {
+            System.out.println("Not found: " + word);
+            System.out.println("    Suggestions: " + dict.nearMisses(word));
+        }
+    }
+
     /**  */
     public static void checkSecond(SpellingDictionary dict) {
+        HashSet<String> incorrect =  new HashSet<String>();
+
         // create a Scanner with input from System.in
         Scanner scanner = new Scanner(System.in);
         // read through words
-        scanner.useDelimiter(" ");
         while (scanner.hasNext()) {
             String baseWord = scanner.next();
             Character lastChar = baseWord.charAt(baseWord.length() - 1);
-            System.out.println("word = "+ baseWord);
-            System.out.println("|||| lastChar = "+ lastChar);
             String word;
             // if no punctuation
             if (lastChar != ',' && lastChar != ':' && lastChar != '!' && lastChar != '.' && lastChar != '?') {
                word = String.valueOf(baseWord);
             } else {
                 // has punctuation
-                System.out.println("***IN HERE**");
                 StringBuilder withComma = new StringBuilder(baseWord);
                 word = withComma.substring(0, withComma.length() - 1);
             }
-            System.out.println("||| new word= " + word);
+            // if incorrect, add to hashSet
+            if (! dict.isListed(word) && ! incorrect.contains(word)) {
+                // add to hashSet
+                incorrect.add(word);
+            }
         }
-        // if correct - move on silently
-        // if incorrect - print message and offer alternatives (only for first time)
+        // print hashSet
+        printIncorrect(incorrect, dict);
     }
 
     /** */
