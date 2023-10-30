@@ -33,8 +33,7 @@ public class SpellingDictionary implements SpellingOperations {
       *  @return true if the query word is in the dictionary.
     */
     public boolean isListed(String word) {
-        StringBuilder sb = new StringBuilder(word.toLowerCase());
-        return dictionary.contains(sb);
+        return dictionary.contains(word.toLowerCase());
     }
 
     /** @returns ArrayList of Strings with possible 1-character deletions */
@@ -127,7 +126,7 @@ public class SpellingDictionary implements SpellingOperations {
         // checks them against the dictionary and deletes any repetitions
         for (String nearMiss : allNearMisses) {
             // if in dictionary and not a repeat
-            if (dictionary.contains(nearMiss)) {
+            if (isListed(nearMiss)) {
                 if (! validNearMisses.contains(nearMiss)) {
                     validNearMisses.add(nearMiss);
                 }
@@ -135,11 +134,5 @@ public class SpellingDictionary implements SpellingOperations {
         }
 
         return validNearMisses;
-    }
-
-    // TEST
-    public static void main(String[] args) {
-        Test test = new Test();
-        test.testFunctions();
     }
 }
