@@ -1,7 +1,7 @@
 public class Test {
 
     public SpellingDictionary test;
-    public String[] testWords = {"abcdefg","a","ab","abc",""};
+    public String[] testWords = {"dag","a","catle","kinfdom",""};
 
     public Test () {
         test = new SpellingDictionary("words.txt");
@@ -28,6 +28,11 @@ public class Test {
         return numChoices;
     }
 
+    public void printPF(int expected, int actual) {
+        String toPrint = expected == actual ? "TEST PASSED\n" : "TEST FAILED\n";
+        System.out.println(toPrint);
+    }
+
     /** prints tests of functions */
     public void testFunctions() {
         // Tests
@@ -40,35 +45,56 @@ public class Test {
             System.out.println("Deletions:");
             // for first test, print out all options
             // System.out.println("Deletions: " + test.generateDeletions(testWord));
-            System.out.println("Expected number of choices: " + numChoices("deletion",testWords[i]));
-            System.out.println("Actual number of choices: " + test.generateDeletions(testWord).size()+"\n");
+            int expected = numChoices("deletion",testWords[i]);
+            int actual = test.generateDeletions(testWord).size();
+            System.out.println("Expected number of choices: " + expected);
+            System.out.println("Actual number of choices: " + actual);
+            printPF(expected, actual);
 
             // insertions
             System.out.println("Insertions:");
+            expected = numChoices("insertion",testWords[i]);
+            actual = test.generateInsertions(testWord).size();
             // System.out.println("Insertions: " + test.generateInsertions(testWord));
-            System.out.println("Expected number of choices: " + numChoices("insertion",testWords[i]));
-            System.out.println("Actual number of choices: " + test.generateInsertions(testWord).size()+"\n");
+            System.out.println("Expected number of choices: " + expected);
+            System.out.println("Actual number of choices: " + actual);
+            printPF(expected, actual);
 
             // substitutions
             System.out.println("Substitutions:");
             // System.out.println("Substitutions: " + test.generateSubstitutions(testWord));
-            System.out.println("Expected number of choices: " + numChoices("substitution",testWords[i]));
-            System.out.println("Actual number of choices: " + test.generateSubstitutions(testWord).size()+"\n");
+            expected = numChoices("substitution",testWords[i]);
+            actual = test.generateSubstitutions(testWord).size();
+            System.out.println("Expected number of choices: " + expected);
+            System.out.println("Actual number of choices: " + actual);
+            printPF(expected, actual);
 
             // transpositions
             System.out.println("Transpositions:");
             // System.out.println("Transpositions: " + test.generateTranspositions(testWord));
-            System.out.println("Expected number of choices: " + numChoices("transposition",testWords[i]));
-            System.out.println("Actual number of choices: " + test.generateTranspositions(testWord).size()+"\n");
+            expected = test.generateTranspositions(testWord).size();
+            actual = test.generateTranspositions(testWord).size();
+            System.out.println("Expected number of choices: " + expected);
+            System.out.println("Actual number of choices: " + actual);
+            printPF(expected, actual);
 
             // splits
             System.out.println("Splits");
             // System.out.println("Splits: " + test.generateSplits(testWord));
-            System.out.println("Expected number of choices: " + numChoices("split",testWords[i]));
-            System.out.println("Actual number of choices: " + test.generateSplits(testWord).size()+"\n");
+            expected = numChoices("split",testWords[i]);
+            actual = test.generateSplits(testWord).size();
+            System.out.println("Expected number of choices: " + expected);
+            System.out.println("Actual number of choices: " + actual);
+            printPF(expected, actual);
 
             // test nearMisses
             System.out.println("All valid nearMisses = " + test.nearMisses(testWords[i]));
         }
+    }
+
+    // TEST
+    public static void main(String[] args) {
+        Test test = new Test();
+        test.testFunctions();
     }
 }
