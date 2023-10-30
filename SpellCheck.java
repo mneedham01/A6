@@ -1,8 +1,9 @@
 import java.util.HashSet;
 import java.util.Scanner;
+/** reads in words and checks with SpellingDictionary  */
 public class SpellCheck {
 
-    /**  */
+    /** Checks words given manually into command line */
     public static void checkFirst(String[] args, SpellingDictionary dict) {
         // loop through arguments
         for (String word : args) {
@@ -16,8 +17,7 @@ public class SpellCheck {
         }
     }
 
-    /**
-     */
+    /** formats the print statement for an incorrect word  */
     public static void printIncorrect(HashSet<String> incorrect, SpellingDictionary dict) {
         System.out.println("Total mispelled words: " + incorrect.size());
         for (String word: incorrect) {
@@ -26,7 +26,7 @@ public class SpellCheck {
         }
     }
 
-    /**  */
+    /** checks a file given to the main method */
     public static void checkSecond(SpellingDictionary dict) {
         HashSet<String> incorrect =  new HashSet<String>();
 
@@ -62,7 +62,7 @@ public class SpellCheck {
         printIncorrect(incorrect, dict);
     }
 
-    /** */
+    /** main method evaluates which style of invocation and calls appropriate method */
     public static void main(String[] args) {
         SpellingDictionary dict = new SpellingDictionary("words.txt");
         // if len args > 0 : first style of invocation

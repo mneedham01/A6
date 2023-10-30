@@ -1,7 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-
+/** Generates dictionary, checks whether words are valid, and generates near misses  */
 public class SpellingDictionary implements SpellingOperations {
     HashSet<String> dictionary;
     // establish alphabet

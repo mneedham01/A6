@@ -28,6 +28,7 @@ public class Test {
         return numChoices;
     }
 
+    /** Prints whether the expected & actual number of choices match */
     public void printPF(int expected, int actual) {
         String toPrint = expected == actual ? "TEST PASSED\n" : "TEST FAILED\n";
         System.out.println(toPrint);
@@ -92,7 +93,7 @@ public class Test {
         }
     }
 
-    // TEST
+    /** Runs test */
     public static void main(String[] args) {
         Test test = new Test();
         test.testFunctions();
