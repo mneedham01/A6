@@ -45,6 +45,13 @@ public class SpellCheck {
                 StringBuilder withComma = new StringBuilder(baseWord);
                 word = withComma.substring(0, withComma.length() - 1);
             }
+            // if has an apostrophe
+            if (word.contains("'")) {
+                StringBuilder sb = new StringBuilder(word);
+                int apos = sb.indexOf("'");
+                sb.deleteCharAt(apos);
+                word = sb.toString();
+            }
             // if incorrect, add to hashSet
             if (! dict.isListed(word) && ! incorrect.contains(word)) {
                 // add to hashSet
