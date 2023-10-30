@@ -24,33 +24,33 @@ The operations you should provide are described in the interface `SpellingOperat
 
 * You will provide a method to check whether the dictionary   `containsWord`  for a particular spelling, returning true or false.
 
-* You will also provide a `nearMisses` method that will return an `ArrayList` of correctly spelled words that are exactly one edit away from a given incorrect word spelling.  It will do this by constructing all possible near misses, checking them against the dictionary, and returning any that are real words, without duplicates. 
+* You will also provide a `nearMisses` method that will return an `ArrayList` of correctly spelled words that are exactly one edit away from a given incorrect word spelling.  It will do this by constructing all possible near misses, checking them against the dictionary, and returning any that are real words, without duplicates.
 
 You should consider the following types of near misses:
 
 #### Deletions
 
-Delete one letter from the word. (n possibilities for a word of length n)  
+Delete one letter from the word. (n possibilities for a word of length n)
 E.g.: **catttle** -> **cattle**
 
 #### Insertions
 
-Insert one letter into the word at any point. (26*(n+1) possibilities for a word of length n)  
+Insert one letter into the word at any point. (26*(n+1) possibilities for a word of length n)
 E.g.: **catle** -> **cattle**
 
 #### Substitutions
 
-Replace one character with another. (25*n possibilities for a word of length n)  
+Replace one character with another. (25*n possibilities for a word of length n)
 E.g.: **caxtle** -> **cattle**
 
 #### Transpositions
 
-Swap two adjacent characters. (n-1 possibilities for a word of length n)  
+Swap two adjacent characters. (n-1 possibilities for a word of length n)
 E.g.: **cattel** -> **cattle**
 
 #### Splits
 
-Divide the word into two legal words. (n-1 possibilities for a word of length n) -- for this kind of near miss, the pair of words together should be recorded as a single entry, with a space between them. 
+Divide the word into two legal words. (n-1 possibilities for a word of length n) -- for this kind of near miss, the pair of words together should be recorded as a single entry, with a space between them.
 E.g.: **cattell** -> **cat tell**
 
 (Note that there may be more than one way to generate a particular near miss using the above rules; the list returned by `nearMisses` should still include it only once.  Hint:  Think creatively about how you might eliminate any duplicates most efficiently.)
@@ -80,9 +80,9 @@ You will run the program from the terminal by typing something like the followin
 The program will run, and might then respond with something like:
 
     Not found:  qest
-      Suggestions:  cest est fest gest hest jest mest nest quest rest test vest yest zest 
+      Suggestions:  cest est fest gest hest jest mest nest quest rest test vest yest zest
     Not found:  questt
-      Suggestions:  quest quests 
+      Suggestions:  quest quests
     'quest' is spelled correctly.
 
 In the example, we provided three words to be checked, and the program responds to each one.  Note that in this style of program invocation, the three words are **command line arguments**, and they are relayed to your program via the `String[] args` parameter of the `main` function.  When command line arguments are provided, the program prints a message about every word, whether it is correct or not, and makes suggestions for incorrect words.  This is the first mode of operation.
@@ -118,13 +118,13 @@ So long liues this, and this giues life to thee.
 <!--### Some Notes on Design
 This is a good opportunity to practice what you have learned about class design. Specifically, try to put methods in logical places **based upon the roles of the classes**:
 
-- Think of ``SpellDictionary`` as a class that might be used by other programs -- a word processor, for example, or an email program -- so try to keep it general, while still offering useful and powerful methods. 
+- Think of ``SpellDictionary`` as a class that might be used by other programs -- a word processor, for example, or an email program -- so try to keep it general, while still offering useful and powerful methods.
 - Your ``SpellCheck`` program is one specific application. If you design ``SpellDictionary`` well, then your ``SpellCheck`` will be quite short... but you don't want ``SpellDictionary`` catering too much to ``SpellCheck``'s specific implementation!
 -->
 
 ## Phase 3 Details:  Experiments (Kudos!)
 
-Your spell checker provides a good opportunity to investigate the practical differences between different lookup structures. Make two new files with different versions of your program, the first using a ``TreeSet`` instead of a ``HashSet``, and the second using an ``ArrayList``. These should be relatively transparent substitutions, since the important method names are the same. 
+Your spell checker provides a good opportunity to investigate the practical differences between different lookup structures. Make two new files with different versions of your program, the first using a ``TreeSet`` instead of a ``HashSet``, and the second using an ``ArrayList``. These should be relatively transparent substitutions, since the important method names are the same.
 
 You can use the `Timer` class to measure how long a piece of code takes to run.  Use `start()` to start the time running and `stop()` to stop it and return the elapsed time in seconds.  Check the running time of all three variations, and note the results in your readme file. Keep in mind that it takes some time just to build the dictionary, so you really should run two tests for each program: one with an empty file so you can see how long just the dictionary-building takes, and another where you spell-check the dictionary itself so you can see what the performance is like on a large file. The time difference between the two runs is the amount spent spell-checking. Compare these numbers for the three different data structures. Do the results match your expectations?  Include your observations in your reflection.
 
